@@ -1,0 +1,30 @@
+# ./tasks/copy_nginx_files.yml
+
+# copy nginx config, cert and key to vm
+
+# copy nginx config file
+- name: NGINX | Copying nginx.conf
+  copy:
+    src: config/nginx.conf
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: 0644
+
+# make directory for certs
+- name: NGINX | Creating SSL directory for nginx
+  file:
+    path: /etc/nginx/ssl
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+# copy certificate
+- name: SSL | Copying self signed crt and key
+  copy:
+    src: files/
+    dest: /etc/nginx/ssl
+    owner: root
+    group: root
+    mode: 0644

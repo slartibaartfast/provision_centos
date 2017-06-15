@@ -1,0 +1,8 @@
+# ./tasks/restart_nginx.yml
+
+# restart nginx
+- name: NGINX | Restarting nginx
+  service: 
+    name: nginx
+    state: restarted
+    enabled: yes

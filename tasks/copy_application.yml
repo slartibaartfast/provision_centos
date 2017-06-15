@@ -1,0 +1,18 @@
+# ./tasks/copy_application.yml
+
+# Copy and unpack our application
+
+# Copy application
+- name: Application | Copying application zip file
+  copy:
+    src: application.zip
+    dest: /opt
+    owner: root
+    group: root
+    mode: 0644
+
+# Unarchive application
+- name: Application | Unarchiving application to opt/application
+  unarchive:
+    src: /opt/application.zip
+    dest: /opt

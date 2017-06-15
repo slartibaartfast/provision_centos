@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /opt/application
+nohup python server.py </dev/null >/dev/null 2>&1 &

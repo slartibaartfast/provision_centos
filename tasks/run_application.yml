@@ -1,0 +1,41 @@
+# ./tasks/run_application.yml
+
+# This sets up a managed process for runit and our application
+# by creating process and service directories for runit, copying
+# our run file to the process directory, and making a symbolic link
+# to the service directory.
+
+# create a process directory for runit to start our application
+- name: runit | Creating directory for application run process
+  file:
+    path: /etc/sv/application
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+# copy run to process directory
+- name: runit | Copying run to process directory
+  copy:
+    remote_src: True
+    src: /opt/application/run
+    dest: /etc/sv/application
+    owner: root
+    group: root
+    mode: 0755
+
+# create a service directory for runit to manage
+- name: runit| Creating directory for application service
+  file:
+    path: /etc/service/application
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+# create a symbolic link in service for runit to pick up
+- name: runit | Creating symbolic link between process and service
+  file:
+    src: /etc/sv/application/run
+    dest: /etc/service/application/run
+    state: link

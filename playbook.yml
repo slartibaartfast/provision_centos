@@ -1,0 +1,26 @@
+---
+- hosts: all
+  become: True
+
+  tasks:
+    # Install the dependancies
+    - include: tasks/deps.yml
+
+    # Install nginx
+    - include: tasks/install_nginx.yml
+
+    # Install runit
+    - include: tasks/install_runit.yml
+
+    # Copy config/nginx.conf, files/self-signed.key
+    # and files/self-signed.cert to the destination box
+    - include: tasks/copy_nginx_files.yml
+
+    # Copy and unpack application to /opt/application
+    - include: tasks/copy_application.yml
+
+    # Run the application with runit
+    - include: tasks/run_application.yml
+
+    # Restart nginx
+    - include: tasks/restart_nginx.yml
